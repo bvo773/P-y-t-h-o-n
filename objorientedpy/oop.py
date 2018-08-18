@@ -10,6 +10,7 @@ class Employee:
         self.firstName = firstName # instance var
         self.lastName = lastName # instance var
         self.salary = salary # instance var
+        self.email = f'{firstName}.{lastName}@email.com'
         Employee.numOfEmployees += 1 # class var
 
     def printFullName(self):
@@ -36,20 +37,53 @@ class Employee:
 
 class Developer(Employee):
     raiseAmount = 1.10
+    def __init__(self, firstName, lastName, salary, progLanguage):
+        super().__init__(firstName, lastName, salary) # calling parent's constructor
+        self.progLanguage = progLanguage
     pass
 
-emp1 = Developer('Binh', 'Vo', 65000)
-emp1.raiseSalary()
-print(emp1.salary)
+class Manager(Employee):
+    raiseAmount = 1.15
+    def __init__(self, firstName, lastName, salary, employees=None):
+        super().__init__(firstName, lastName, salary)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
 
+    def addEmployee(self, employee):
+        if employee not in self.employees:
+            self.employees.append(employee)
 
+    def removeEmployee(self, employee):
+        if employee in self.employees:
+            self.employees.remove(employee)
+
+    def printAllEmployees(self):
+        for employee in self.employees:
+           print('-->', employee.printFullName())   
+
+manager1 = Manager('Nathaniel', 'Lee', 150000)
+emp1 = Developer('Binh', 'Vo', 65000, 'Python')
 emp2 = Employee('Trash', 'Bin', 40000)
-print(emp1.raiseAmount)
-print(emp2.raiseAmount)
+manager1.addEmployee(emp1)
+manager1.addEmployee(emp2)
+print(manager1.email)
+manager1.printAllEmployees()
+
+# isinstance(), issubclass() - return a bool if a an instance is part of a particular class or subclass
+print(isinstance(emp1, Employee))
+print(issubclass(manager1, Employee))
+print(issubclass(Manager, Developer))
+
+
+
+
+
 
 emp_str_3 = 'David-Lee-90000'
 emp3 = Employee.fromStringCreateEmployee(emp_str_3)
-
+print(emp3.__dict__)
 # print(help(Developer))
 Employee.setRaiseAmount(1.05)
 
