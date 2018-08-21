@@ -2,6 +2,7 @@
 # Class variable: variables(Datas) that are shared among all instances of a class
 # Class method is declared by adding a decorator and uses a cls argument -> Usually to create an instance
 # Static method doesn't have cls and self as arguments
+# Special(magic/dunder) methods: __init__, __repr__, __str__, __add__, look at datetime module
 class Employee:
     raiseAmount = 1.04 # class var
     numOfEmployees = 0
@@ -34,6 +35,18 @@ class Employee:
         if day.weekday() == 6 or day.weekday() == 7:
             return False
         return True
+
+    # Dunder methods 
+    # for debugging
+    def __repr__(self):
+        return (f'{self.firstName}, {self.lastName} - , {self.salary}')
+
+    def __str__(self):
+        return (f'{self.firstName} {self.lastName} - {self.email}')    
+
+    def __add__(self, other):
+        return self.salary + other.salary
+
 
 class Developer(Employee):
     raiseAmount = 1.10
@@ -73,12 +86,7 @@ manager1.printAllEmployees()
 
 # isinstance(), issubclass() - return a bool if a an instance is part of a particular class or subclass
 print(isinstance(emp1, Employee))
-print(issubclass(manager1, Employee))
 print(issubclass(Manager, Developer))
-
-
-
-
 
 
 emp_str_3 = 'David-Lee-90000'
@@ -96,3 +104,8 @@ print(emp2.__dict__) # Getting all attributes of an instance or a class
 import datetime
 day_off = datetime.date(2018, 8, 17)
 print(Employee.isWorkday(day_off))
+
+# Using Dunder Methods
+print(repr(emp1))
+print(str(manager1))
+print(emp1 + manager1)
