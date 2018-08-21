@@ -6,13 +6,25 @@
 class Employee:
     raiseAmount = 1.04 # class var
     numOfEmployees = 0
+    
 
     def __init__(self, firstName, lastName, salary):
         self.firstName = firstName # instance var
         self.lastName = lastName # instance var
         self.salary = salary # instance var
         self.email = f'{firstName}.{lastName}@email.com'
+        
         Employee.numOfEmployees += 1 # class var
+
+    @property
+    def fullname(self):
+        return (f'{self.firstName} {self.last}')
+
+    @fullname.setter
+    def setfullname(self, name):
+        first, last = name.split(" ")
+        self.first = first
+        self.last  = last
 
     def printFullName(self):
         return (f'{self.firstName} {self.lastName}')
@@ -77,35 +89,38 @@ class Manager(Employee):
            print('-->', employee.printFullName())   
 
 manager1 = Manager('Nathaniel', 'Lee', 150000)
-emp1 = Developer('Binh', 'Vo', 65000, 'Python')
-emp2 = Employee('Trash', 'Bin', 40000)
-manager1.addEmployee(emp1)
-manager1.addEmployee(emp2)
-print(manager1.email)
-manager1.printAllEmployees()
+manager1.fullName = 'Binh Vo' # calling setter method
+print(manager1.fullName) # calling getter method
+# emp1 = Developer('Binh', 'Vo', 65000, 'Python')
+# emp2 = Employee('Trash', 'Bin', 40000)
 
-# isinstance(), issubclass() - return a bool if a an instance is part of a particular class or subclass
-print(isinstance(emp1, Employee))
-print(issubclass(Manager, Developer))
+# manager1.addEmployee(emp1)
+# manager1.addEmployee(emp2)
+# print(manager1.email)
+# manager1.printAllEmployees()
+
+# # isinstance(), issubclass() - return a bool if a an instance is part of a particular class or subclass
+# print(isinstance(emp1, Employee))
+# print(issubclass(Manager, Developer))
 
 
-emp_str_3 = 'David-Lee-90000'
-emp3 = Employee.fromStringCreateEmployee(emp_str_3)
-print(emp3.__dict__)
-# print(help(Developer))
-Employee.setRaiseAmount(1.05)
+# emp_str_3 = 'David-Lee-90000'
+# emp3 = Employee.fromStringCreateEmployee(emp_str_3)
+# print(emp3.__dict__)
+# # print(help(Developer))
+# Employee.setRaiseAmount(1.05)
 
-# Both ways are ==, Using an instance to call a method
-# Using a Class and pass in the instance for it to reference it-'self'
-print(emp1.printFullName())  
-print(Employee.printFullName(emp1))
-print(emp2.__dict__) # Getting all attributes of an instance or a class
+# # Both ways are ==, Using an instance to call a method
+# # Using a Class and pass in the instance for it to reference it-'self'
+# print(emp1.printFullName())  
+# print(Employee.printFullName(emp1))
+# print(emp2.__dict__) # Getting all attributes of an instance or a class
 
-import datetime
-day_off = datetime.date(2018, 8, 17)
-print(Employee.isWorkday(day_off))
+# import datetime
+# day_off = datetime.date(2018, 8, 17)
+# print(Employee.isWorkday(day_off))
 
-# Using Dunder Methods
-print(repr(emp1))
-print(str(manager1))
-print(emp1 + manager1)
+# # Using Dunder Methods
+# print(repr(emp1))
+# print(str(manager1))
+# print(emp1 + manager1)
