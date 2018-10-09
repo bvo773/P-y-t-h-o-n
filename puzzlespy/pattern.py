@@ -27,13 +27,30 @@ n = 3
 
 
 def pattern_2(n):
-    i = 0
+    k = n - 1
+    for row in range(n):
+
+        i = 0
+
+        print(k)
+        while (i < k):
+            print(' ', end=' ')
+            i += 1
+
+        k = k - 1
+
+        j = i
+        while (j < n):
+            print('*', end=' ')
+            j += 1
+        print()
 
 
 def main():
     n = 3
     pattern_1(n)
-    reverse()
+    print()
+    pattern_2(n)
 
 
 if __name__ == '__main__':
