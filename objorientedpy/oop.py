@@ -3,44 +3,42 @@
 # Class method is declared by adding a decorator and uses a cls argument -> Usually to create an instance
 # Static method doesn't have cls and self as arguments
 # Special(magic/dunder) methods: __init__, __repr__, __str__, __add__, look at datetime module
+
+
 class Employee:
-    raiseAmount = 1.04 # class var
+
+    raiseAmount = 1.04  # class var
     numOfEmployees = 0
-    
 
     def __init__(self, firstName, lastName, salary):
-        self.firstName = firstName # instance var
-        self.lastName = lastName # instance var
-        self.salary = salary # instance var
-        self.email = f'{firstName}.{lastName}@email.com'
-        
-        Employee.numOfEmployees += 1 # class var
+        self.firstName = firstName  # instance var
+        self.lastName = lastName  # instance var
+        self.salary = salary  # instance var
+        self.email = '{}.{}@email.com'.format(self.firstName, self.lastName)
+
+        Employee.numOfEmployees += 1  # class var
 
     @property
     def fullname(self):
-        return (f'{self.firstName} {self.last}')
+        return '{} {}'.format(self.firstName, self.lastName)
 
     @fullname.setter
     def setfullname(self, name):
         first, last = name.split(" ")
         self.first = first
-        self.last  = last
-
-    def printFullName(self):
-        return (f'{self.firstName} {self.lastName}')
+        self.last = last
 
     def raiseSalary(self):
         self.salary = int(self.salary * Employee.raiseAmount)
 
-  
     @classmethod
     def setRaiseAmount(cls, amount):
         cls.raiseAmount = amount
- 
+
     @classmethod
     def fromStringCreateEmployee(cls, string):
-        first, last, pay = string.split('-')  
-        return cls(first, last, pay) 
+        first, last, pay = string.split('-')
+        return cls(first, last, pay)
 
     @staticmethod
     def isWorkday(day):
@@ -48,27 +46,30 @@ class Employee:
             return False
         return True
 
-    # Dunder methods 
+    # Dunder methods
     # for debugging
-    def __repr__(self):
-        return (f'{self.firstName}, {self.lastName} - , {self.salary}')
+    # def __repr__(self):
+    #     return (f'{self.firstName}, {self.lastName} - , {self.salary}')
 
-    def __str__(self):
-        return (f'{self.firstName} {self.lastName} - {self.email}')    
+    # def __str__(self):
+    #     return (f'{self.firstName} {self.lastName} - {self.email}')
 
-    def __add__(self, other):
-        return self.salary + other.salary
+    # def __add__(self, other):
+    #     return self.salary + other.salary
 
 
 class Developer(Employee):
     raiseAmount = 1.10
+
     def __init__(self, firstName, lastName, salary, progLanguage):
-        super().__init__(firstName, lastName, salary) # calling parent's constructor
+        super().__init__(firstName, lastName, salary)  # calling parent's constructor
         self.progLanguage = progLanguage
     pass
 
+
 class Manager(Employee):
     raiseAmount = 1.15
+
     def __init__(self, firstName, lastName, salary, employees=None):
         super().__init__(firstName, lastName, salary)
         if employees is None:
@@ -86,11 +87,12 @@ class Manager(Employee):
 
     def printAllEmployees(self):
         for employee in self.employees:
-           print('-->', employee.printFullName())   
+            print('-->', employee.printFullName())
+
 
 manager1 = Manager('Nathaniel', 'Lee', 150000)
-manager1.fullName = 'Binh Vo' # calling setter method
-print(manager1.fullName) # calling getter method
+manager1.fullName = 'Binh Vo'  # calling setter method
+print(manager1.fullName)  # calling getter method
 # emp1 = Developer('Binh', 'Vo', 65000, 'Python')
 # emp2 = Employee('Trash', 'Bin', 40000)
 
@@ -112,7 +114,7 @@ print(manager1.fullName) # calling getter method
 
 # # Both ways are ==, Using an instance to call a method
 # # Using a Class and pass in the instance for it to reference it-'self'
-# print(emp1.printFullName())  
+# print(emp1.printFullName())
 # print(Employee.printFullName(emp1))
 # print(emp2.__dict__) # Getting all attributes of an instance or a class
 
