@@ -6,7 +6,7 @@ n = 3
 '''
 
 
-def pattern(n):
+def pattern_1(n):
     i = 0
     while (i < n):
         k = 0
@@ -18,9 +18,22 @@ def pattern(n):
         i += 1
 
 
+'''
+n = 3
+    *
+  * *
+* * *
+'''
+
+
+def pattern_2(n):
+    i = 0
+
+
 def main():
     n = 3
-    pattern(n)
+    pattern_1(n)
+    reverse()
 
 
 if __name__ == '__main__':
