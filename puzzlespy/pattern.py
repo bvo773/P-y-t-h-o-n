@@ -19,7 +19,7 @@ def pattern_1(n):
 
 
 '''
-n = 3
+n = 3, i = print ' ', j = print '*', k = condition variable
     *
   * *
 * * *
@@ -29,16 +29,11 @@ n = 3
 def pattern_2(n):
     k = n - 1
     for row in range(n):
-
         i = 0
-
-        print(k)
         while (i < k):
             print(' ', end=' ')
             i += 1
-
         k = k - 1
-
         j = i
         while (j < n):
             print('*', end=' ')
