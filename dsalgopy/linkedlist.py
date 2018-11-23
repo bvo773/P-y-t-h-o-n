@@ -22,8 +22,6 @@ class SinglyLinkedList:
         if (self.head.next is None):
             self.tail = new_node
 
-
-
     def insert_tail(self, data):
         new_node = Node(data)
         if (self.tail is None):
@@ -34,7 +32,8 @@ class SinglyLinkedList:
         if (self.head is None):
             self.head = new_node
 
-
+    def reverse_list(self):
+        pass
 # node1 = Node(1)
 # node2 = Node(2)
 
