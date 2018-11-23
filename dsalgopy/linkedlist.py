@@ -19,11 +19,21 @@ class SinglyLinkedList:
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
+        if (self.head.next is None):
+            self.tail = new_node
+
+
 
     def insert_tail(self, data):
         new_node = Node(data)
-        self.tail.next = new_node
-        tail = new_node
+        if (self.tail is None):
+            self.tail = new_node
+        elif (self.tail.next is None):
+            self.tail.next = new_node
+            self.tail = new_node
+        if (self.head is None):
+            self.head = new_node
+
 
 # node1 = Node(1)
 # node2 = Node(2)
@@ -33,5 +43,7 @@ singly_linked_list = SinglyLinkedList()
 singly_linked_list.insert_head(1)
 singly_linked_list.insert_head(2)
 singly_linked_list.insert_head(3)
-singly_linked_list.insert_tail(4)
+singly_linked_list.insert_tail(5)
+
+
 singly_linked_list.print_list()
