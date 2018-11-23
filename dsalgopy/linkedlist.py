@@ -34,6 +34,9 @@ class SinglyLinkedList:
 
     def reverse_list(self):
         pass
+
+    def delete_node(self):
+        pass
 # node1 = Node(1)
 # node2 = Node(2)
 
