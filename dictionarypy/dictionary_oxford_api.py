@@ -1,8 +1,9 @@
 import json
 import requests
+import os
 
-app_id = "bffc5d4d"
-app_apikey = "5fc0b331b90f1deec87522931cc14574"
+app_id = os.environ["OXFORD_APP_ID"]
+app_apikey = os.environ["OXFORD_API_KEY"]
 
 endpoint="entries"
 language_code="en-us"
