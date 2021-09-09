@@ -19,13 +19,22 @@ response = requests.get(url, headers={"app_id": app_id, "app_key": api_key})
 json_data = json.loads(response.text) # returns a python dictionary object with (response.text -> returns a response in unicode)
 
 
-# Get all
-definitions_arr = json_data["results"]
+# Get all definitions in array
+results_arr = json_data["results"]
+
+
 i = 1
-for definition in definitions_arr:
-  meanings = definition["lexicalEntries"][0]["entries"][0]["senses"]
-  for meaning in meanings:
-      word_definition = meaning['definitions'][0]
-      print(f"\n{i}. {word_definition}")   
+for result in results_arr:
+  lexical_entries = result['lexicalEntries']
+ 
+  for lexical_entry in lexical_entries:
+    part_of_speech = lexical_entry['lexicalCategory']['id']
+    definition_senses = lexical_entry['entries'][0]['senses']
+    print(f"\nPart of Speech - {part_of_speech}")
+    
+    for definition_sense in definition_senses:
+      definition = definition_sense['definitions'][0]
+      print(f"\nDefinition {i}: {definition}")
       i+=1
+
 #print(json_data)
