@@ -30,11 +30,13 @@ for result in results_arr:
   for lexical_entry in lexical_entries:
     part_of_speech = lexical_entry['lexicalCategory']['id']
     definition_senses = lexical_entry['entries'][0]['senses']
-    print(f"\nPart of Speech - {part_of_speech}")
+    print(f"\nPart of Speech: {part_of_speech}")
     
     for definition_sense in definition_senses:
       definition = definition_sense['definitions'][0]
       print(f"\nDefinition {i}: {definition}")
       i+=1
+    
+    print("---------------------------------------------------------------------------")
 
 #print(json_data)
