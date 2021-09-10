@@ -20,9 +20,14 @@ json_data = json.loads(response.text) # returns a python dictionary object with 
 
 
 # Get all definitions in array
-results_arr = json_data["results"]
+results = json_data["results"]
 
+i = 1
+for result in results:
+    lexical_entries = result["lexicalEntries"]
+    for lexical_entry in lexical_entries:
 
+'''
 i = 1
 for result in results_arr:
   lexical_entries = result['lexicalEntries']
@@ -39,4 +44,4 @@ for result in results_arr:
     
     print("---------------------------------------------------------------------------")
 
-#print(json_data)
+'''
