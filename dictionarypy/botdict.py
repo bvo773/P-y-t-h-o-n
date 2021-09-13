@@ -1,6 +1,8 @@
+from nltk.corpus import wordnet
 import requests
 import json
 import os
+
 
 ''' Authentication parameters
 app_id = os.environ["OXFORD_APP_ID"]
@@ -9,14 +11,25 @@ api_key = os.environ["OXFORD_API_KEY"]
 '''
 endpoint = "entries"
 language_code ="en-us"
-word_id = input("Word: " )
 '''
+
 
 def getapp_id():
   return os.environ["OXFORD_APP_ID"]
-
+  
 def getapp_apikey():
   return os.environ["OXFORD_API_KEY"]
+
+def get_word_thesaurus(word):
+  synlist = []
+  antlist = []
+  for synset in wordnet.synsets(word):
+    for lemma in synset.lemmas():
+      synlist.append(lemma.name())
+      if (lemma.antonyms()):
+        antlist.append(lemma.antonyms()[0].name())
+  print("Synonyms: ", synlist)
+  print("Antonyms: ", antlist)
 
 def find_root_word(word):
   endpoint = "lemmas"
@@ -50,15 +63,16 @@ def find_word_definition(word):
   results = data["results"]
   result = results[0]
   
-  #in result, go to lexicalentries->entrties->senses->definitions, examples,
-  #print (results)
+  #in result, go to lexicalentries->entrties->senses->definitions, examples|print (results)
   lexicalentries = result["lexicalEntries"]
   for lexicalentry in lexicalentries:
     lexical_category = lexicalentry["lexicalCategory"]["id"]
     print("Part of speech: ", lexical_category)  
    #get the entries to get the definitions
     get_entries(lexicalentry)  
-
+  
+  # Then print the thesaurus of the word
+  get_word_thesaurus(root_word)
 
 def get_entries(lexicalentry):
   entries = lexicalentry["entries"]
@@ -92,6 +106,7 @@ def menu():
   find_word_definition(word)
   
 def main():
+  
   loop = True
   while (loop):
     try:
