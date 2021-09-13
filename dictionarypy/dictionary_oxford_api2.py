@@ -80,8 +80,8 @@ def terminate_loop():
   elif(answer == 'y' or answer == 'Y'):
     terminate = True
   else:
-    print("Sorry, didn't understand your choice, terminating...bye...")
-    terminate = False
+    print("Sorry, didn't understand your choice, please try again")
+    terminate = True
 
   return terminate
     
@@ -93,14 +93,14 @@ def menu():
   
 def main():
   loop = True
-  try:
-    while (loop):
+  while (loop):
+    try:
       menu()
       loop = terminate_loop()
-  except KeyError:
-    print("Failed to retrieve word. Please check your spelling")
-  except ValueError:
-    print("Failed to decode json")     
+    except KeyError:
+      print("Failed to retrieve word. Please check your spelling")
+    except ValueError:
+      print("Failed to decode json")     
 
 if __name__ == "__main__":
   main()
