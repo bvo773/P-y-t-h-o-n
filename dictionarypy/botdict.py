@@ -1,4 +1,5 @@
 from nltk.corpus import wordnet
+from spellchecker import SpellChecker
 import requests
 import json
 import os
@@ -20,6 +21,20 @@ def getapp_id():
 def getapp_apikey():
   return os.environ["OXFORD_API_KEY"]
 
+def check_spelling(word):
+  spell = SpellChecker()
+  if (spell.correction(word) == word):
+    return "Invalid word, cannot suggest any word, please try again"
+
+  return spell.correction(word)
+
+def suggest_words(word):
+  spell = SpellChecker()
+  if (len(spell.candidates(word)) == 1 and spell.candidates(word).pop() == word):
+    return f"Sorry, no suggestions were found"
+    
+  return spell.candidates(word)
+
 def get_word_thesaurus(word):
   synlist = []
   antlist = []
@@ -28,8 +43,16 @@ def get_word_thesaurus(word):
       synlist.append(lemma.name())
       if (lemma.antonyms()):
         antlist.append(lemma.antonyms()[0].name())
-  print("Synonyms: ", synlist)
-  print("Antonyms: ", antlist)
+  
+  if (len(synlist) == 0):
+    print ("No synonyms found, sorry")
+  else:
+    print("Synonyms: ", synlist)
+  
+  if (len(antlist) == 0):
+    print ("No antonyms found, sorry")
+  else:
+    print("Antonyms: ", antlist)
 
 def find_root_word(word):
   endpoint = "lemmas"
@@ -83,7 +106,7 @@ def get_entries(lexicalentry):
     print("Example: ", example)
     print("=============================================================================")
   except KeyError: #no key found in json
-    print("No example found")   
+    print("No example found, sorry")   
     print("=============================================================================")
 
 def terminate_loop():
@@ -98,24 +121,27 @@ def terminate_loop():
     terminate = True
 
   return terminate
-    
+  
 def menu():
-  print("=============================================================================")
-  print("Hello, im botdict, i can help u look up a word with its definitions and examples")
-  word = input("\nWhat WORD should botdict look up?  ")
-  find_word_definition(word)
-  
+  try:
+    print("=============================================================================")
+    print("Hello, im botdict, i can help u look up a word with its definitions and examples")
+    word = input("\nWhat WORD should botdict look up?  ")
+    find_word_definition(word)
+  except KeyError:
+    print(f"Invalid spelling, did you mean to spell? {check_spelling(word)}")
+    print(f"Here is a list of suggestive words: {suggest_words(word)}")
+    print("=============================================================================")
+
 def main():
-  
   loop = True
   while (loop):
     try:
       menu()
       loop = terminate_loop()
-    except KeyError:
-      print("Failed to retrieve word. Please check your spelling")
     except ValueError:
       print("Failed to decode json")     
 
 if __name__ == "__main__":
   main()
+
