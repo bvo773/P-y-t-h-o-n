@@ -1,2 +1,8 @@
-# P-y-t-h-o-n
+# Projects in Python
+
+DictionaryPy
+BiblePy
+PuzzlesPy
+DataStucturesAlgorithmsPy
+...
 
